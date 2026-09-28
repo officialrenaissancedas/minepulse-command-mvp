@@ -1,6 +1,14 @@
 # MinePulse Command — PS 24 governance MVP
 
-A deployable Vite + React website backed by Supabase. Deploy the frontend to **Vercel or Render** (or both); Supabase provides Auth, Postgres, private evidence storage, row-level security, and realtime updates.
+A deployable Vite + React website with optional Supabase persistence. The frontend is live on both **Vercel** and **Render**; Supabase is not configured on the current public deployments.
+
+## Live sites
+
+- [Vercel production site](https://minepulse-command-mvp.vercel.app)
+- [Render static site](https://minepulse-command.onrender.com)
+- [Private GitHub source repository](https://github.com/officialrenaissancedas/minepulse-command-mvp)
+
+Both hosts deploy from the `main` branch when changes are pushed. The current sites show **Local demo mode**: the only connected Supabase project is inactive, has not been restored, and has not received this app’s migration. Data entered on the sites does not sync between visitors or devices. Use demo/test data only; do not enter sensitive or real operational records. See [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) before enabling a Supabase backend.
 
 ## What works in this MVP
 

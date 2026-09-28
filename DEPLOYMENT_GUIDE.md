@@ -8,6 +8,16 @@ You need accounts at [GitHub](https://github.com), [Supabase](https://supabase.c
 
 > **Cost warning:** prices and free-plan limits change. Check the current provider pricing and your organization’s terms before adding real users or sensitive data. The in-app cost planner is an editable scenario calculator, not a live quote.
 
+## Current live deployment
+
+- [Open MinePulse on Vercel](https://minepulse-command-mvp.vercel.app)
+- [Open MinePulse on Render](https://minepulse-command.onrender.com)
+- Source: [private GitHub repository](https://github.com/officialrenaissancedas/minepulse-command-mvp)
+
+Both hosts build from the `main` branch and redeploy after a push. The public sites are currently in **Local demo mode**. The only Supabase project in the connected account is inactive; it has not been restored, and this app’s migration has not been applied. Records entered on the public sites do not sync between visitors or devices. Use demo data only—do not enter sensitive or real operational information.
+
+To enable shared persistence later, first choose an active Supabase project and check its plan/charges, then complete Part 2, add the two browser-safe environment variables to **both** hosting projects, and redeploy. Never use a Supabase service-role/secret key in this browser app.
+
 ### Pick your website host
 
 | Approach | Tradeoffs | Cost | Setup complexity |
@@ -21,7 +31,7 @@ The same GitHub repository can deploy to either or both hosts. **Supabase is use
 ## Part 1 — Put the project on GitHub (using GitHub Desktop)
 
 1. Download and unzip `minepulse-command-mvp.zip` on your computer.
-2. Open [github.com/new](https://github.com/new) and create a repository named `minepulse-command`. Choose **Private** for a prototype with test data. Do not add a README, license, or `.gitignore` (they are already in the project).
+2. Open [github.com/new](https://github.com/new) and create a repository named `minepulse-command-mvp`. Choose **Private** for a prototype with test data. Do not add a README, license, or `.gitignore` (they are already in the project).
 3. Install [GitHub Desktop](https://desktop.github.com/) and sign in.
 4. In GitHub Desktop, choose **File → Clone repository**, select the new repository, choose a folder on your computer, and click **Clone**.
 5. Open the unzipped MinePulse project folder. Copy its contents—including hidden `.gitignore` and `.env.example`—into the cloned GitHub folder. **Do not copy `node_modules`, `dist`, or any `.env.local` file.**
@@ -74,7 +84,7 @@ VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_REPLACE_WITH_YOUR_PUBLIC_KEY
 ## Part 3 — Host the website on Vercel (choose this or Render)
 
 1. Open [vercel.com](https://vercel.com), create/sign into your account, and choose **Continue with GitHub**.
-2. Choose **Add New → Project** and **Import** `minepulse-command`.
+2. Choose **Add New → Project** and **Import** `minepulse-command-mvp`.
 3. Use these build settings (the checked-in `vercel.json` already supplies the install/build/output settings):
 
    - Framework: **Vite**
@@ -97,7 +107,7 @@ If you later change an environment variable, redeploy—the values are embedded 
 ## Part 4 — Or host the website on Render instead
 
 1. Open [render.com](https://render.com) and sign in with GitHub.
-2. Choose **New → Blueprint** and select the `minepulse-command` repository.
+2. Choose **New → Blueprint** and select the `minepulse-command-mvp` repository.
 3. Render reads the included `render.yaml`. When asked, provide `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`.
 4. Click **Apply** and wait for the Static Site to finish building.
 5. Open the `.onrender.com` link.
