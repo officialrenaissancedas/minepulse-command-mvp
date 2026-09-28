@@ -136,7 +136,7 @@ Repeat Part 3 and Part 4 using the **same GitHub repository and same Supabase pr
 7. Open **Cost & scale**; edit an assumption. The cards/chart/table recalculate, the browser saves your values locally, and **Export scenario** downloads a CSV.
 8. In Supabase **Storage**, confirm that the `minepulse-evidence` bucket is private. Upload a small evidence file with an observation to test the private storage policy.
 
-The dashboard visibly labels static portfolio/map examples as **illustrative reference metrics**. Records you create in observations, reports, contractors, and compliance are the actual persisted records. The cost/scalability inputs are saved only in the current browser and are not shared with Supabase.
+The Overview shows source-linked public production snapshots: company/subsidiary YTD to **26 Sep 2026** and provisional mine-wise FY 2024–25 values. These figures are static in the app and do not represent live mine conditions. Observation, report, contractor, and compliance counts remain empty until your team enters records. The cost/scalability inputs are saved only in the current browser and are not shared with Supabase. See `DATA_SOURCES.md` for the full provenance and update notes.
 
 ## Local preview (optional)
 
@@ -199,11 +199,11 @@ Commit and push the changed files to GitHub using GitHub Desktop. Vercel and Ren
 ## MVP boundaries — please read before real-world use
 
 - **Notifications:** submissions create a queued report and database audit event, but no email, WhatsApp, SMS, or regulator delivery is configured.
-- **AI:** the risk queue is a transparent severity-based rule list and the copilot uses fixed local response templates. No LLM or predictive model is connected; neither feature certifies safety.
+- **AI:** the Copilot preview uses fixed local response templates. There is no live risk feed, LLM, or predictive model; the feature does not provide safety advice.
 - **Offline:** when Supabase is configured, report text and coordinates are stored in a browser outbox and retried on reconnection. Evidence-file uploads still require a connection. Without Supabase configuration, records are browser-only and do not sync.
 - **Access:** current anonymous-user policies isolate each user’s records. There are no company roles, shared contractor accounts, or regulator portal yet.
 - **Compliance:** checks are team-entered tracking records, not a legally validated or automatically updated statutory register.
-- **Portfolio visuals:** the bundled mine-score map and some overview illustrations are demo/reference content, not a live data feed.
+- **Public production data:** overview figures are source-linked dated snapshots and are not refreshed automatically. They do not certify mine health, safety, attendance, or compliance.
 - **Scalability:** use the planner for scenario discussion. It does not query hosting quotas, billing, traffic, or Supabase usage.
 
 For a production rollout, the next steps are named sign-in/SSO, organization and mine membership roles, reviewed multi-tenant RLS, server-side notification delivery, testing with real workload data, and a security review.
