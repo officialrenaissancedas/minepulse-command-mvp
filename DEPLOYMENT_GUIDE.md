@@ -14,9 +14,9 @@ You need accounts at [GitHub](https://github.com), [Supabase](https://supabase.c
 - [Open MinePulse on Render](https://minepulse-command.onrender.com)
 - Source: [private GitHub repository](https://github.com/officialrenaissancedas/minepulse-command-mvp)
 
-Both hosts build from the `main` branch and redeploy after a push. The public sites are currently in **Local demo mode**. The only Supabase project in the connected account is inactive; it has not been restored, and this app’s migration has not been applied. Records entered on the public sites do not sync between visitors or devices. Use demo data only—do not enter sensitive or real operational information.
+Both hosts build from the `main` branch and redeploy after a push. The live sites are connected to active Supabase project `jseqekpijkfjrolomijw` in Singapore, and anonymous sign-ins are enabled. Observations, reports, audit events, and evidence persist for the same anonymous browser identity, but are not shared across different browsers or devices. Contractor/compliance records and cost assumptions remain browser-local. Use demo data only—do not enter sensitive or real operational information.
 
-To enable shared persistence later, first choose an active Supabase project and check its plan/charges, then complete Part 2, add the two browser-safe environment variables to **both** hosting projects, and redeploy. Never use a Supabase service-role/secret key in this browser app.
+The production backend setup is already complete. If you are creating a different Supabase project, complete Part 2, add the two browser-safe environment variables to **both** hosting projects, and redeploy. Never use a Supabase service-role/secret key in this browser app.
 
 ### Pick your website host
 
@@ -61,11 +61,11 @@ Important: anonymous identities are tied to that browser’s saved session. If s
 ### C. Create the database, private file bucket, and permissions
 
 1. In Supabase, choose **SQL Editor → New query**.
-2. In the GitHub repository, open `supabase/migrations/20260928000000_minepulse.sql` and copy the **entire** file.
-3. Paste it into the SQL Editor and click **Run**.
-4. Confirm the query finishes without an error.
+2. In the GitHub repository, open each `.sql` file in `supabase/migrations/` in filename order.
+3. Paste one complete file into the SQL Editor and click **Run**; repeat for the next file. Do this once per project, and do not re-run migrations already applied.
+4. The cleanup migration only removes a uniquely named temporary launch-test record if it exists; on a fresh project it does nothing. Confirm each migration finishes without an error.
 
-The migration creates the observation/report workflow, contractor and compliance registers, audit rows, indexes, row-level security policies, realtime publication membership (where available), and the **private** `minepulse-evidence` Storage bucket. Every saved observation automatically creates an **in-app queued report** and an audit event. It does not send an email or file an official report.
+The migrations create the observation/report workflow, contractor and compliance tables, audit rows, indexes, row-level security policies, realtime publication membership (where available), and the **private** `minepulse-evidence` Storage bucket. They also restrict direct RPC execution of the report trigger and optimize common access paths. Every saved observation automatically creates an **in-app queued report** and an audit event. It does not send an email or file an official report.
 
 ### D. Copy the two browser-safe settings
 
@@ -131,12 +131,12 @@ Repeat Part 3 and Part 4 using the **same GitHub repository and same Supabase pr
 2. In MinePulse, open **Log observation** and enter a test title, mine, category, severity, and description.
 3. To attach coordinates, press **Capture my location** and allow the browser’s location prompt. Location is optional; the report still works if permission is denied.
 4. Submit. The report should appear in the **Reports** page and in Supabase **Table Editor → observations** and `reports`.
-5. Open **Contractors** and add a test company. Change its status and refresh; the value should persist.
-6. Open **Compliance** and add a test requirement. Change status, refresh, and export its CSV.
+5. Open **Contractors** and add a test company. Change its status and refresh; the value should persist in this browser only.
+6. Open **Compliance** and add a test requirement. Change status, refresh, and export its CSV; this register is also browser-local.
 7. Open **Cost & scale**; edit an assumption. The cards/chart/table recalculate, the browser saves your values locally, and **Export scenario** downloads a CSV.
 8. In Supabase **Storage**, confirm that the `minepulse-evidence` bucket is private. Upload a small evidence file with an observation to test the private storage policy.
 
-The Overview shows source-linked public production snapshots: company/subsidiary YTD to **26 Sep 2026** and provisional mine-wise FY 2024–25 values. These figures are static in the app and do not represent live mine conditions. Observation, report, contractor, and compliance counts remain empty until your team enters records. The cost/scalability inputs are saved only in the current browser and are not shared with Supabase. See `DATA_SOURCES.md` for the full provenance and update notes.
+The Overview shows source-linked public production snapshots: company/subsidiary YTD to **26 Sep 2026** and provisional mine-wise FY 2024–25 values. These figures are static in the app and do not represent live mine conditions. Observation and report records sync to Supabase under the current anonymous browser identity; contractor and compliance records and cost/scalability inputs are saved only in the current browser. No register is shared across browser identities. See `DATA_SOURCES.md` for the full provenance and update notes.
 
 ## Local preview (optional)
 
@@ -174,7 +174,7 @@ The static site output is `dist/public`.
 
 ### It says “Supabase tables are not ready”
 
-Return to **Supabase → SQL Editor**, run the full checked-in migration, and confirm there is no red SQL error. Verify the Auth **Anonymous Sign-Ins** setting is on.
+Return to **Supabase → SQL Editor**, run any not-yet-applied migration files in filename order, and confirm there is no red SQL error. Verify the Auth **Anonymous Sign-Ins** setting is on and that both hosting projects use the URL and publishable key from this same Supabase project.
 
 ### A new browser can’t see the previous anonymous user’s records
 
