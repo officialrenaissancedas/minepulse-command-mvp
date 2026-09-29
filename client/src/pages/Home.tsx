@@ -513,7 +513,7 @@ export default function Home() {
         </header>
 
         <div className="page-container">
-          {activeNav !== "Cost & scale" && <div className="data-caveat"><AlertTriangle size={15} /><span><strong>Public data and your records are separate.</strong> Production figures are dated public snapshots—not live mine telemetry, safety, or compliance status. Observation, report, contractor, and compliance records remain empty until your team enters them; they sync to Supabase when configured. Cost assumptions stay in this browser.{pendingSyncCount > 0 && ` ${pendingSyncCount} observation(s) are waiting to sync.`}</span></div>}
+          {activeNav !== "Cost & scale" && <div className="data-caveat"><AlertTriangle size={15} /><span><strong>Public data and your records are separate.</strong> Production figures are dated public snapshots—not live mine telemetry, safety, or compliance status. Observations and reports sync to Supabase for this anonymous browser identity; contractor and compliance registers and cost assumptions stay in this browser. Guest records are not shared across browsers or devices.{pendingSyncCount > 0 && ` ${pendingSyncCount} observation(s) are waiting to sync.`}</span></div>}
           <section className="page-heading">
             <div>
               <div className="eyebrow"><span className="live-pulse" /> {activeNav === "Overview" ? "PUBLIC COAL PRODUCTION · SOURCE-DATED SNAPSHOT" : dataSource === "Supabase live" ? "SUPABASE CONNECTED · USER RECORDS" : "LOCAL PREVIEW · USER RECORDS"}</div>
