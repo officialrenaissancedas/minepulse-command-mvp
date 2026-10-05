@@ -1,0 +1,20 @@
+flowchart TB
+  A[Baseline period]
+  B[Shadow-mode model]
+  C[Operator review]
+  D[Field validation]
+  E[Go / no-go decision]
+  A -->|same routes, same hours| B
+  B -->|compare proposals| C
+  C -->|label TP, FP, FN, TN| D
+  D -->|inspect false negatives| E
+  E -->|approved thresholds| F[Production monitoring]
+  E -->|not ready| G[Relabel + retrain]
+  G --> B
+  F --> H[Monthly drift review]
+  classDef stage fill:#172219,stroke:#b8e86a,color:#f6faef;
+  classDef quality fill:#1b2434,stroke:#7ebfe7,color:#f6faef;
+  classDef decision fill:#34251a,stroke:#efb84c,color:#f6faef;
+  class A,B,C stage;
+  class D,F,H quality;
+  class E,G decision;

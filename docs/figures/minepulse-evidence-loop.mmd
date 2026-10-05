@@ -1,0 +1,15 @@
+flowchart LR
+  A[Drone / RGB / Thermal input] --> B[Frame sampling + GPS]
+  B --> C[Detector proposes boxes]
+  C --> D[Confidence + risk rules]
+  D --> E[Evidence packet]
+  E --> F[Human review]
+  F --> G[Assign / escalate / close]
+  G --> H[Audit trail + report]
+  H -. feedback .-> C
+  classDef input fill:#153126,stroke:#b8e86a,color:#f6faef;
+  classDef model fill:#1d2940,stroke:#7ebfe7,color:#f6faef;
+  classDef human fill:#33251c,stroke:#efb84c,color:#f6faef;
+  class A,B input;
+  class C,D,E model;
+  class F,G,H human;
